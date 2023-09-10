@@ -22,13 +22,44 @@ struct Player {
     int games;
     int goals;
 };
-int initListOfPlayers(Player* &players, int size);
-void playerDataToConsole(Player player);
+
+int InitListOfPlayers(Player* &players, int size);
+int AddNewPlayer(Player* &players, int size, int& id);
+int DeleteNewPlayer(Player* &players, int size, int id);
+void PlayerDataToConsole(Player player);
 void BestForward(Player* players, int size);
 void LessThanFiveGames(Player* players, int size);
 
 
-int initListOfPlayers(Player* &players, int size) {
+const char* getPositionName(Player::Position position) {
+    switch (position) {
+        case Player::Goalkeeper:
+            return "Goalkeeper";
+        case Player::Left_Back:
+            return "Left Back";
+        case Player::Center_Back:
+            return "Center Back";
+        case Player::Right_Back:
+            return "Right Back";
+        case Player::Defensive_Midfield:
+            return "Defensive Midfield";
+        case Player::Central_Midfield:
+            return "Central Midfield";
+        case Player::Attacking_Midfield:
+            return "Attacking Midfield";
+        case Player::Right_Forward:
+            return "Right Forward";
+        case Player::Left_Forward:
+            return "Left Forward";
+        case Player::Striker:
+            return "Striker";
+        default:
+            return "Unknown";
+    }
+}
+
+
+int InitListOfPlayers(Player* &players, int size, int& id) {
     while (true) {
         // меню для ініціалізація одразу декількох гравців
         std::cout << "Do you want to add another player? (1 - Yes, 2 - No): ";
@@ -39,46 +70,48 @@ int initListOfPlayers(Player* &players, int size) {
             case 1: {
                 // створення гравця
                 Player newPlayer;
-                newPlayer.id = size + 1;
+                newPlayer.id = id;
+                id++;
                 std::cout << "Last name: ";
                 std::cin >> newPlayer.lastName;
                 std::cout << "Position (0 - Goalkeeper, 1 - Left_Back, 2 - Center_Back, 3 - Right_Back, 4 - Defensive_Midfield, 5 - Central_Midfield, 6 - Attacking_Midfield, 7 - Right_Forward, 8 - Left_forward, 9 - Striker): ";
-                int position;
-                std::cin >> position;
-                switch (position) {
+                int choice;
+                std::cin >> choice;
+                switch (choice) {
                     case 0: 
-                        newPlayer.position = Player::Goalkeeper; 
+                        newPlayer.position = Player::Position::Goalkeeper; 
                         break;
                     case 1: 
-                        newPlayer.position = Player::Left_Back; 
+                        newPlayer.position = Player::Position::Left_Back; 
                         break;
                     case 2: 
-                        newPlayer.position = Player::Center_Back; 
+                        newPlayer.position = Player::Position::Center_Back; 
                         break;
                     case 3: 
-                        newPlayer.position = Player::Right_Back; 
+                        newPlayer.position = Player::Position::Right_Back; 
                         break;
                     case 4: 
-                        newPlayer.position = Player::Defensive_Midfield; 
+                        newPlayer.position = Player::Position::Defensive_Midfield; 
                         break;
                     case 5: 
-                        newPlayer.position = Player::Central_Midfield; 
+                        newPlayer.position = Player::Position::Central_Midfield; 
                         break;
                     case 6: 
-                        newPlayer.position = Player::Attacking_Midfield; 
+                        newPlayer.position = Player::Position::Attacking_Midfield; 
                         break;
                     case 7: 
-                        newPlayer.position = Player::Right_Forward; 
+                        newPlayer.position = Player::Position::Right_Forward; 
                         break;
                     case 8: 
-                        newPlayer.position = Player::Left_Forward; 
+                        newPlayer.position = Player::Position::Left_Forward; 
                         break;
                     case 9: 
-                        newPlayer.position = Player::Striker; 
+                        newPlayer.position = Player::Position::Striker; 
                         break;
                     default:
                         break;
                 }
+
                 std::cout << "Age: ";
                 std::cin >> newPlayer.age;
                 std::cout << "Number of games: ";
@@ -130,7 +163,7 @@ void BestForward(Player* players, int size) {
         }
     }
     std::cout << std::endl << "Best Forward: " << std::endl;
-    playerDataToConsole(best_player);
+    PlayerDataToConsole(best_player);
 }
 
 void LessThanFiveGames(Player* players, int size) {
@@ -138,14 +171,15 @@ void LessThanFiveGames(Player* players, int size) {
     for (int i = 0; i < size; i++) {
         Player& player = players[i];
         if (player.games < 5) {
-            playerDataToConsole(player);
+            PlayerDataToConsole(player);
         }
     }
 }
 
-int AddNewPlayer(Player* &players, int size) {
+int AddNewPlayer(Player* &players, int size, int& id) {
     Player newPlayer;
-    newPlayer.id = size + 1;
+    newPlayer.id = id;
+    id++;
     std::cout << "Last name: ";
     std::cin >> newPlayer.lastName;
     std::cout << "Position (0 - Goalkeeper, 1 - Left_Back, 2 - Center_Back, 3 - Right_Back, 4 - Defensive_Midfield, 5 - Central_Midfield, 6 - Attacking_Midfield, 7 - Right_Forward, 8 - Left_forward, 9 - Striker): ";
@@ -236,11 +270,11 @@ int DeleteNewPlayer(Player* &players, int size, int id) {
     return size - 1;
 }
 
-void playerDataToConsole(Player player) {
+void PlayerDataToConsole(Player player) {
     std::cout << "-------------------------" << std::endl;
     std::cout << "ID: " << player.id << std::endl;
     std::cout << "Last Name: " << player.lastName << std::endl;
-    std::cout << "Position: " << player.position << std::endl;
+    std::cout << "Position: " << getPositionName(player.position) << std::endl;
     std::cout << "Age: " << player.age << std::endl;
     std::cout << "Number of games: " << player.games << std::endl;
     std::cout << "Number of goals: " << player.goals << std::endl;
@@ -249,7 +283,7 @@ void playerDataToConsole(Player player) {
 
 int main() {
     Player* players = nullptr;
-    int numPlayers = 0;
+    int numPlayers = 0, id = 1;
     bool flag = true;
     
     while(flag) {
@@ -266,10 +300,10 @@ int main() {
         std::cin >> choice;
         switch (choice) {
             case 1:
-                numPlayers = initListOfPlayers(players, numPlayers);
+                numPlayers = InitListOfPlayers(players, numPlayers, id);
                 break;
             case 2:
-                numPlayers = AddNewPlayer(players, numPlayers);
+                numPlayers = AddNewPlayer(players, numPlayers, id);
                 break;
             case 3:
                 std::cout << "Enter ID:" << std::endl;
@@ -280,7 +314,7 @@ int main() {
             case 4:
                 for (int i = 0; i < numPlayers; i++) {
                     const Player& player = players[i];
-                    playerDataToConsole(player);
+                    PlayerDataToConsole(player);
                 }
                 break;
             case 5:
