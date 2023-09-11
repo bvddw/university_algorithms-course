@@ -16,7 +16,7 @@ struct Player {
     };
 
     int id;
-    std::string lastName;
+    const char* lastName;
     Position position;
     int age;
     int games;
@@ -73,7 +73,9 @@ int InitListOfPlayers(Player* &players, int size, int& id) {
                 newPlayer.id = id;
                 id++;
                 std::cout << "Last name: ";
-                std::cin >> newPlayer.lastName;
+                char* lastname = new char[36];
+                std::cin >> lastname;
+                newPlayer.lastName = lastname;
                 std::cout << "Position (0 - Goalkeeper, 1 - Left_Back, 2 - Center_Back, 3 - Right_Back, 4 - Defensive_Midfield, 5 - Central_Midfield, 6 - Attacking_Midfield, 7 - Right_Forward, 8 - Left_forward, 9 - Striker): ";
                 int choice;
                 std::cin >> choice;
@@ -181,7 +183,9 @@ int AddNewPlayer(Player* &players, int size, int& id) {
     newPlayer.id = id;
     id++;
     std::cout << "Last name: ";
-    std::cin >> newPlayer.lastName;
+    char* lastname = new char[36];
+    std::cin >> lastname;
+    newPlayer.lastName = lastname;
     std::cout << "Position (0 - Goalkeeper, 1 - Left_Back, 2 - Center_Back, 3 - Right_Back, 4 - Defensive_Midfield, 5 - Central_Midfield, 6 - Attacking_Midfield, 7 - Right_Forward, 8 - Left_forward, 9 - Striker): ";
     int position;
     std::cin >> position;
