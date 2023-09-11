@@ -24,6 +24,7 @@ struct Player {
 };
 
 int InitListOfPlayers(Player* &players, int size);
+const char* getPositionName(Player::Position position);
 int AddNewPlayer(Player* &players, int size, int& id);
 int DeleteNewPlayer(Player* &players, int size, int id);
 void PlayerDataToConsole(Player player);
