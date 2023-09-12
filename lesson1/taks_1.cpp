@@ -1,5 +1,5 @@
 #include <iostream>
-#include <string>
+#include<fstream>
 
 struct Player {
     enum Position {
@@ -30,6 +30,8 @@ int DeleteNewPlayer(Player* &players, int size, int id);
 void PlayerDataToConsole(Player player);
 void BestForward(Player* players, int size);
 void LessThanFiveGames(Player* players, int size);
+bool PlayerDataToFile(const Player& player, FILE* file);
+void DataToFile(Player* players, int size);
 
 
 const char* getPositionName(Player::Position position) {
@@ -286,6 +288,33 @@ void PlayerDataToConsole(Player player) {
     std::cout << "-------------------------" << std::endl;
 }
 
+bool PlayerDataToFile(const Player& player, FILE* file) {
+    size_t isWritten = fwrite(&player, sizeof(Player), 1, file);
+
+    if (isWritten == 1) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+void DataToFile(Player* players, int size) {
+    FILE* file = fopen("players.bin", "wb");
+    if (!file) {
+        std::cerr << "Unable to open the file 'players.bin' for writing." << std::endl;
+        return;
+    }
+    for (int i = 0; i < size; i++) {
+        const Player& player = players[i];
+        if (!PlayerDataToFile(player, file)) {
+            return;
+        }
+    }
+    fclose(file);
+    std::cout << "Players data successfully written to file.";
+}
+
+
 int main() {
     Player* players = nullptr;
     int numPlayers = 0, id = 1;
@@ -299,7 +328,8 @@ int main() {
         std::cout << "4. Info about all players" << std::endl;
         std::cout << "5. Info about players with less than 5 games" << std::endl;
         std::cout << "6. Info about best forward" << std::endl;
-        std::cout << "7. Exit" << std::endl;
+        std::cout << "7. Write players to file" << std::endl;
+        std::cout << "8. Exit" << std::endl;
 
         int choice;
         std::cin >> choice;
@@ -329,6 +359,9 @@ int main() {
                 BestForward(players, numPlayers);
                 break;
             case 7:
+                DataToFile(players, numPlayers);
+                break;
+            case 8:
                 std::cout << std::endl << "Thank you for using our program!";
                 flag = false;
                 break;
