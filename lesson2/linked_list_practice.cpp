@@ -22,13 +22,13 @@ void initLLWithHead(pnode head) {
 
     bool flag = true;
     int choice;
-    pnode new_item; // Declare new_item outside the loop
+    pnode new_item;
     while (flag) {
         cout << "Do you want to add a new item? (1 - yes, 2 - no)" << endl;
         cin >> choice;
         switch (choice) {
             case 1:
-                new_item = new tnode; // Reuse the same new_item variable
+                new_item = new tnode;
                 cout << "Enter new info: ";
                 cin >> new_info;
                 new_item->info = new_info;
@@ -57,13 +57,13 @@ pnode initLLWOHead() {
 
     bool flag = true;
     int choice;
-    pnode new_item; // Declare new_item outside the loop
+    pnode new_item;
     while (flag) {
         cout << "Do you want to add a new item? (1 - yes, 2 - no)" << endl;
         cin >> choice;
         switch (choice) {
             case 1:
-                new_item = new tnode; // Reuse the same new_item variable
+                new_item = new tnode;
                 cout << "Enter new info: ";
                 cin >> new_info;
                 new_item->info = new_info;

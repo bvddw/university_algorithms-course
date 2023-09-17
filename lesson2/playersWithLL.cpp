@@ -1,6 +1,7 @@
 #include <iostream>
 #include<fstream>
 
+// struct of player
 struct Player {
     enum Position {
         Goalkeeper,
@@ -23,24 +24,25 @@ struct Player {
     int goals;
 };
 
+// struct of or LL (Linked List)
 struct LinkedList {
     Player* info;
     LinkedList* next;
 };
 
-typedef LinkedList* LL;
+typedef LinkedList* LL; // creating typedef for easier coding
 using namespace std;
 
-void InitListOfPlayers(LL head, int& id);
-const char* getPositionName(Player::Position position);
-void AddNewPlayer(LL head, int& id);
-void DeletePlayer(LL head, int id);
-void PlayerDataToConsole(Player* player);
-void AllPlayersToConsole(LL head);
-void BestForward(LL head);
-void LessThanFiveGames(LL head);
-bool PlayerDataToFile(Player* player, FILE* file);
-void DataToFile(LL head);
+const char* getPositionName(Player::Position position); // function to correct displaying position
+void InitListOfPlayers(LL head, int& id); // function to add a list of player in one action
+void AddNewPlayer(LL head, int& id); // function to add only one player in one action
+void DeletePlayer(LL head, int id); // function to delete player by ID
+void PlayerDataToConsole(Player* player); // function to display one player`s data in console
+void AllPlayersToConsole(LL head); // function to display all player`s data in console
+void BestForward(LL head); // function to display best forward data
+void LessThanFiveGames(LL head); // function to display data about all players, that played less than five games
+bool PlayerDataToFile(Player* player, FILE* file); // function to save data about player in file
+void DataToFile(LL head); // function to save all player`s data to file
 
 
 const char* getPositionName(Player::Position position) {
@@ -72,19 +74,19 @@ const char* getPositionName(Player::Position position) {
 
 
 void InitListOfPlayers(LL head, int& id) {
-    LL cur = head;
+    LL cur = head; // getting last item of LL to 'push' new player after it
     while (cur->next) {
         cur = cur->next;
     }
     while (true) {
-        // меню для ініціалізація одразу декількох гравців
+        // menu for initialization creation new player
         cout << "Do you want to add another player? (1 - Yes, 2 - No): ";
         int choice;
         cin >> choice;
 
         switch (choice) {
             case 1: {
-                // створення гравця
+                // creation new player
                 Player* newPlayer = new Player;
                 newPlayer->id = id;
                 id++;
@@ -137,6 +139,7 @@ void InitListOfPlayers(LL head, int& id) {
                 cout << "Number of goals: ";
                 cin >> newPlayer->goals;
 
+                // adding player to LL
                 LL new_ll_item = new LinkedList;
                 new_ll_item->info = newPlayer;
                 new_ll_item->next = nullptr;
@@ -157,6 +160,7 @@ void InitListOfPlayers(LL head, int& id) {
 }
 
 void AddNewPlayer(LL head, int& id) {
+    // creation new player
     Player* new_player = new Player;
     new_player->id = id;
     id++;
@@ -209,9 +213,10 @@ void AddNewPlayer(LL head, int& id) {
     cin >> new_player->goals;
 
     LL cur = head;
-    while (cur->next) {
+    while (cur->next) { // getting last item of LL to 'push' new player after it
         cur = cur->next;
     }
+    // pushing new player to the end of LL
     LL new_ll_item = new LinkedList;
     new_ll_item->info = new_player;
     new_ll_item->next = nullptr;
@@ -222,20 +227,21 @@ void DeletePlayer(LL head, int id) {
     LL cur = head->next;
     LL prev = head;
     while (cur) {
-        if (cur->info->id == id) {
+        if (cur->info->id == id) { // checking if this player needs to be removed
             prev->next = cur->next;
             delete cur->info;
             delete cur;
             return;
         }
+        // going through the LL
         prev = cur;
         cur = cur->next;
     }
-
+    // if there no player with asked id
     cout << endl << "There are no player with id " << id <<"!" << endl;
 }
 
-void PlayerDataToConsole(Player* player) {
+void PlayerDataToConsole(Player* player) { // printing all info about player to console 
     cout << "-------------------------" << endl;
     cout << "ID: " << player->id << endl;
     cout << "Last Name: " << player->lastName << endl;
@@ -246,7 +252,7 @@ void PlayerDataToConsole(Player* player) {
     cout << "-------------------------" << endl;
 }
 
-void AllPlayersToConsole(LL head) {
+void AllPlayersToConsole(LL head) { // going through LL and call PlayerDataToConsole to pring data about everyone
     LL cur = head->next;
     cout << endl << endl << "Data about all players:" << endl;
     while (cur) {
@@ -255,7 +261,7 @@ void AllPlayersToConsole(LL head) {
     }
 } 
 
-bool PlayerDataToFile(Player* player, FILE* file) {
+bool PlayerDataToFile(Player* player, FILE* file) { // writing data about chosen player in the file
     size_t isWritten = fwrite(player, sizeof(Player), 1, file);
 
     if (isWritten == 1) {
@@ -266,13 +272,13 @@ bool PlayerDataToFile(Player* player, FILE* file) {
 }
 
 void DataToFile(LL head) {
-    FILE* file = fopen("players.bin", "wb");
-    if (!file) {
+    FILE* file = fopen("players.bin", "wb"); // trying to open file
+    if (!file) { // if can not open file
         cerr << "Unable to open the file 'players.bin' for writing." << endl;
         return;
     }
     LL cur = head->next;
-    while(cur) {
+    while(cur) { // going through LL to write data in the file about everyone
         Player* player = cur->info;
         if (!PlayerDataToFile(player, file)) {
             return;
@@ -288,7 +294,7 @@ void BestForward(LL head) {
     int max_goals = 0;
     Player* best_forward = new Player;
     best_forward = nullptr;
-    while (cur) {
+    while (cur) { // going through LL and compare forwards to choose the best
         if (cur->info->position == Player::Position::Left_Forward || cur->info->position == Player::Position::Right_Forward) {
             if (cur->info->goals > max_goals) {
                 best_forward = cur->info;
@@ -297,10 +303,10 @@ void BestForward(LL head) {
         }
         cur = cur->next;
     }
-    if (best_forward) {
+    if (best_forward) { // if we have at least one forward
         cout << endl << endl << "Data about best forward:" << endl; 
         PlayerDataToConsole(best_forward);
-    } else {
+    } else { // if no forwards in LL
         cout << endl << endl << "There are no forwards." << endl;
     }
 }
@@ -308,7 +314,7 @@ void BestForward(LL head) {
 void LessThanFiveGames(LL head) {
     LL cur = head->next;
     cout << endl << endl << "Data about players with less than 5 games:" << endl;
-    while (cur) {
+    while (cur) { // going through LL and printing data about players that played less than five games
         if (cur->info->games < 5) {
             PlayerDataToConsole(cur->info); 
         }
@@ -323,6 +329,7 @@ int main() {
     int id = 1;
     bool flag = true;
     
+    // menu for user
     while(flag) {
         cout << endl;
         cout << "MENU:" << endl;
