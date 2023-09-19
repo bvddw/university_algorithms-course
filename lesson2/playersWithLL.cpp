@@ -36,6 +36,8 @@ using namespace std;
 const char* getPositionName(Player::Position position); // function to correct displaying position
 void InitListOfPlayers(LL head, int& id); // function to add a list of player in one action
 void AddNewPlayer(LL head, int& id); // function to add only one player in one action
+void AddPlayerAfterGiven(LL head, int& id, int add_after_id); // function to add one player to LL after chosen player by user
+void AddPlayerBeforeGiven(LL head, int& id, int add_before_id); // function to add one player to LL before chosen player by user
 void DeletePlayer(LL head, int id); // function to delete player by ID
 void PlayerDataToConsole(Player* player); // function to display one player`s data in console
 void AllPlayersToConsole(LL head); // function to display all player`s data in console
@@ -161,6 +163,7 @@ void InitListOfPlayers(LL head, int& id) {
 
 void AddNewPlayer(LL head, int& id) {
     // creation new player
+    LL new_ll_item = new LinkedList;
     Player* new_player = new Player;
     new_player->id = id;
     id++;
@@ -217,10 +220,148 @@ void AddNewPlayer(LL head, int& id) {
         cur = cur->next;
     }
     // pushing new player to the end of LL
-    LL new_ll_item = new LinkedList;
     new_ll_item->info = new_player;
     new_ll_item->next = nullptr;
     cur->next = new_ll_item;
+}
+
+void AddPlayerAfterGiven(LL head, int& id, int add_after_id) {
+    LL cur = head->next;
+    LL new_ll_item = new LinkedList;
+    Player* new_player = new Player;
+    while (cur) {
+        if(cur->info->id == add_after_id) {
+            new_player->id = id;
+            id++;
+            cout << "Last name: ";
+            char* lastname = new char[36];
+            cin >> lastname;
+            new_player->lastName = lastname;
+            cout << "Position (0 - Goalkeeper, 1 - Left_Back, 2 - Center_Back, 3 - Right_Back, 4 - Defensive_Midfield, 5 - Central_Midfield, 6 - Attacking_Midfield, 7 - Right_Forward, 8 - Left_forward, 9 - Striker): ";
+            int position;
+            cin >> position;
+            switch (position) {
+                case 0: 
+                    new_player->position = Player::Goalkeeper; 
+                    break;
+                case 1: 
+                    new_player->position = Player::Left_Back; 
+                    break;
+                case 2: 
+                    new_player->position = Player::Center_Back; 
+                    break;
+                case 3: 
+                    new_player->position = Player::Right_Back; 
+                    break;
+                case 4: 
+                    new_player->position = Player::Defensive_Midfield; 
+                    break;
+                case 5: 
+                    new_player->position = Player::Central_Midfield; 
+                    break;
+                case 6: 
+                    new_player->position = Player::Attacking_Midfield; 
+                    break;
+                case 7: 
+                    new_player->position = Player::Right_Forward; 
+                    break;
+                case 8: 
+                    new_player->position = Player::Left_Forward; 
+                    break;
+                case 9: 
+                    new_player->position = Player::Striker; 
+                    break;
+                default:
+                    break;
+            }
+            cout << "Age: ";
+            cin >> new_player->age;
+            cout << "Number of games: ";
+            cin >> new_player->games;
+            cout << "Number of goals: ";
+            cin >> new_player->goals;
+
+            new_ll_item->next = cur->next;
+            new_ll_item->info = new_player;
+            cur->next = new_ll_item;
+            cout << endl << "Player added successfully" << endl;
+            return;
+        }
+        cur = cur->next;
+    }
+    // if there no player with asked id
+    cout << endl << "There are no player with id " << add_after_id <<"!" << endl;
+}
+
+void AddPlayerBeforeGiven(LL head, int& id, int add_before_id) {    
+    LL cur = head->next;
+    LL prev = head;
+    LL new_ll_item = new LinkedList;
+    Player* new_player = new Player;
+    while (cur) {
+        if (cur->info->id == add_before_id) {
+            new_player->id = id;
+            id++;
+            cout << "Last name: ";
+            char* lastname = new char[36];
+            cin >> lastname;
+            new_player->lastName = lastname;
+            cout << "Position (0 - Goalkeeper, 1 - Left_Back, 2 - Center_Back, 3 - Right_Back, 4 - Defensive_Midfield, 5 - Central_Midfield, 6 - Attacking_Midfield, 7 - Right_Forward, 8 - Left_forward, 9 - Striker): ";
+            int position;
+            cin >> position;
+            switch (position) {
+                case 0: 
+                    new_player->position = Player::Goalkeeper; 
+                    break;
+                case 1: 
+                    new_player->position = Player::Left_Back; 
+                    break;
+                case 2: 
+                    new_player->position = Player::Center_Back; 
+                    break;
+                case 3: 
+                    new_player->position = Player::Right_Back; 
+                    break;
+                case 4: 
+                    new_player->position = Player::Defensive_Midfield; 
+                    break;
+                case 5: 
+                    new_player->position = Player::Central_Midfield; 
+                    break;
+                case 6: 
+                    new_player->position = Player::Attacking_Midfield; 
+                    break;
+                case 7: 
+                    new_player->position = Player::Right_Forward; 
+                    break;
+                case 8: 
+                    new_player->position = Player::Left_Forward; 
+                    break;
+                case 9: 
+                    new_player->position = Player::Striker; 
+                    break;
+                default:
+                    break;
+            }
+            cout << "Age: ";
+            cin >> new_player->age;
+            cout << "Number of games: ";
+            cin >> new_player->games;
+            cout << "Number of goals: ";
+            cin >> new_player->goals;
+            
+
+            prev->next = new_ll_item;
+            new_ll_item->info = new_player;
+            new_ll_item->next = cur;
+            cout << endl << "Player added successfully" << endl;
+            return;
+        }
+        prev = cur;
+        cur = cur->next;
+    }
+    // if there no player with asked id
+    cout << endl << "There are no player with id " << add_before_id <<"!" << endl;
 }
 
 void DeletePlayer(LL head, int id) {
@@ -316,7 +457,7 @@ void LessThanFiveGames(LL head) {
     cout << endl << endl << "Data about players with less than 5 games:" << endl;
     while (cur) { // going through LL and printing data about players that played less than five games
         if (cur->info->games < 5) {
-            PlayerDataToConsole(cur->info); 
+            PlayerDataToConsole(cur->info);
         }
         cur = cur->next;
     }
@@ -335,15 +476,21 @@ int main() {
         cout << "MENU:" << endl;
         cout << "1. Add a list of players" << endl;
         cout << "2. Add one player" << endl;
-        cout << "3. Delete player by ID" << endl;
-        cout << "4. Info about all players" << endl;
-        cout << "5. Info about players with less than 5 games" << endl;
-        cout << "6. Info about best forward" << endl;
-        cout << "7. Write players to file" << endl;
-        cout << "8. Exit" << endl;
+        cout << "3. Add one player, after chosen player by ID" << endl;
+        cout << "4. Add one player, before chosen player by ID" << endl;
+        cout << "5. Delete player by ID" << endl;
+        cout << "6. Info about all players" << endl;
+        cout << "7. Info about players with less than 5 games" << endl;
+        cout << "8. Info about best forward" << endl;
+        cout << "9. Write players to file" << endl;
+        cout << "0. Exit" << endl;
         int choice;
         cin >> choice;
         switch (choice) {
+            case 0:
+                cout << endl << "Thank you for using our program!";
+                flag = false;
+                break;
             case 1:
                 InitListOfPlayers(head, id);
                 break;
@@ -352,25 +499,33 @@ int main() {
                 break;
             case 3:
                 cout << "Enter ID:" << endl;
+                int add_after_id;
+                cin >> add_after_id;
+                AddPlayerAfterGiven(head, id, add_after_id);
+                break;
+            case 4:
+                cout << "Enter ID:" << endl;
+                int add_before_id;
+                cin >> add_before_id;
+                AddPlayerBeforeGiven(head, id, add_before_id);
+                break;
+            case 5:
+                cout << "Enter ID:" << endl;
                 int id_to_delete;
                 cin >> id_to_delete;
                 DeletePlayer(head, id_to_delete);
                 break;
-            case 4:
+            case 6:
                 AllPlayersToConsole(head);
                 break;
-            case 5:
+            case 7:
                 LessThanFiveGames(head);
                 break;
-            case 6:
+            case 8:
                 BestForward(head);
                 break;
-            case 7:
+            case 9:
                 DataToFile(head);
-                break;
-            case 8:
-                cout << endl << "Thank you for using our program!";
-                flag = false;
                 break;
             default:
                 cout << "Invalide choice.";
