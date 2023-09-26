@@ -9,7 +9,10 @@ struct linked_list {
 using namespace std;
 typedef linked_list* LL;
 
-// Функція для формування та сортування зв'язного списку
+
+LL forming_sorted_LL(); // Функція для формування та сортування зв'язного списку
+void printList(LL head); // Функція для виведення списку
+
 LL forming_sorted_LL() {
     int choice;
     char* data = new char;
@@ -25,11 +28,11 @@ LL forming_sorted_LL() {
     strcpy(head->info, data);
     head->next = nullptr;
 
-    while (true) {
+    while (true) { // додаємо вузли, поки цього хоче користувач
         cout << "Do you want to add more new info?\n1 - YES\n2 - NO\n";
         cin >> choice;
         switch (choice) {
-        case 1:
+        case 1: // додаємо вузел, заповнюємо інформацією
             cout << "Enter new data: ";
             data = new char;
             cin >> data;
@@ -38,11 +41,12 @@ LL forming_sorted_LL() {
             strcpy(new_ll_item->info, data);
             new_ll_item->next = nullptr;
 
-            cur = head;
-            if (strcmp(head->info, data) > 0) {
+            cur = head; 
+            // шукаємо місце для нового вузла, і вставляємо його туди
+            if (strcmp(head->info, data) > 0) { // якщо він менший за голову - новий вузел тепер голова списку
                 new_ll_item->next = head;
                 head = new_ll_item;
-            } else {
+            } else { // якщо голова незмінна, шукаємо місце і вставляємо туди
                 while (cur->next && strcmp(data, cur->next->info) > 0) {
                     cur = cur->next;
                 }
@@ -60,7 +64,6 @@ LL forming_sorted_LL() {
     }
 }
 
-// Функція для виведення списку
 void printList(LL head) {
     LL cur = head;
     while (cur) {
