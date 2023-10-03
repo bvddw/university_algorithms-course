@@ -11,13 +11,13 @@ struct LinkedList {
 typedef LinkedList* LL;
 
 LL recursiveForming(); // forming LL
-void addElementRecursively(LL top); // add element to the end of LL
-void addElementAfterChosenOrInTheEndRecursively(LL top, const char* info); // add element after first element with chosen info
-void addElementBeforeChosenOrInTheEndRecursively(LL& top, const char* info, LL prev = nullptr); // add element before first element with chosen info
-void OutputLLRecursively(LL head); // output LL
-void removeAllElementsWithChosenInfoRecursively(LL &top, const char* info, LL prev = nullptr); // remove all elements from LL with chosen info
-int countElementsRecursively(LL top); // count number of elements in LL
-void deleteLLRecursively(LL head); // delete LL
+void addElement(LL top); // add element to the end of LL
+void addElementAfterChosen(LL top, const char* info); // add element after first element with chosen info
+void addElementBeforeChosen(LL& top, const char* info, LL prev = nullptr); // add element before first element with chosen info
+void OutputLL(LL head); // output LL
+void removeAllElements(LL &top, const char* info, LL prev = nullptr); // remove all elements from LL with chosen info
+int countElements(LL top); // count number of elements in LL
+void deleteLL(LL head); // delete LL
 
 
 
@@ -39,7 +39,7 @@ LL recursiveForming() {
     return top;
 }
 
-void addElementRecursively(LL top) {
+void addElement(LL top) {
     if (!top->next) {
         char* info = new char[100];
         cout << "Info: ";
@@ -50,10 +50,10 @@ void addElementRecursively(LL top) {
         top->next = new_elem;
         return;
     }
-    addElementRecursively(top->next);
+    addElement(top->next);
 }
 
-void addElementAfterChosenOrInTheEndRecursively(LL top, const char* info) {
+void addElementAfterChosen(LL top, const char* info) {
     if (!top->next) {
         char* new_info = new char[100];
         cout << "Info: ";
@@ -71,11 +71,11 @@ void addElementAfterChosenOrInTheEndRecursively(LL top, const char* info) {
         new_elem->next = top->next;
         top->next = new_elem;
     } else {
-        addElementAfterChosenOrInTheEndRecursively(top->next, info);
+        addElementAfterChosen(top->next, info);
     }
 }
 
-void addElementBeforeChosenOrInTheEndRecursively(LL& top, const char* info, LL prev) {
+void addElementBeforeChosen(LL& top, const char* info, LL prev) {
     if (strcmp(top->info, info) == 0) {
         
         char* new_info = new char[100];
@@ -93,17 +93,17 @@ void addElementBeforeChosenOrInTheEndRecursively(LL& top, const char* info, LL p
         }
         return;
     }
-    addElementBeforeChosenOrInTheEndRecursively(top->next, info, top);
+    addElementBeforeChosen(top->next, info, top);
 }
 
-void OutputLLRecursively(LL head) {
+void OutputLL(LL head) {
     cout << head->info << ' ';
     if (head->next){
-        OutputLLRecursively(head->next);
+        OutputLL(head->next);
     }
 }
 
-void removeAllElementsWithChosenInfoRecursively(LL &top, const char* info, LL prev) {
+void removeAllElements(LL &top, const char* info, LL prev) {
     if (!top) {
         return;
     }
@@ -113,35 +113,35 @@ void removeAllElementsWithChosenInfoRecursively(LL &top, const char* info, LL pr
             top = top->next;
             delete[] temp->info;
             delete temp;
-            removeAllElementsWithChosenInfoRecursively(top, info);
+            removeAllElements(top, info);
         } else {
             LL temp = top;
             prev->next = top->next;
             delete[] temp->info;
             delete temp;
-            removeAllElementsWithChosenInfoRecursively(prev->next, info, prev);
+            removeAllElements(prev->next, info, prev);
         }
         
     } else {
-        removeAllElementsWithChosenInfoRecursively(top->next, info, top);
+        removeAllElements(top->next, info, top);
     }
 }
 
-int countElementsRecursively(LL top) {
+int countElements(LL top) {
     if (!top) {
         return 0;
     }
     if (!top->next) {
         return 1;
     }
-    return 1 + countElementsRecursively(top->next);
+    return 1 + countElements(top->next);
 }
 
-void deleteLLRecursively(LL head) {
+void deleteLL(LL head) {
     if (!head) {
         return;
     }
-    deleteLLRecursively(head->next);
+    deleteLL(head->next);
 
     delete[] head->info;
     delete head;
@@ -154,7 +154,7 @@ int main() {
     int number_of_items;
     char* user_info;
     while (flag) {
-        number_of_items = countElementsRecursively(head);
+        number_of_items = countElements(head);
         cout << endl << "MENU:" << endl;
         cout << "1. Forming LL" << endl;
         if (number_of_items) {
@@ -180,28 +180,28 @@ int main() {
             head = recursiveForming();
             break;
         case 2:
-            addElementRecursively(head);
+            addElement(head);
             break;
         case 3:
             user_info = new char[100];
             cout << "Enter info, after which you want to add new element: ";
             cin >> user_info;
-            addElementAfterChosenOrInTheEndRecursively(head, user_info);
+            addElementAfterChosen(head, user_info);
             break;
         case 4:
             user_info = new char[100];
             cout << "Enter info, before which you want to add new element: ";
             cin >> user_info;
-            addElementBeforeChosenOrInTheEndRecursively(head, user_info);
+            addElementBeforeChosen(head, user_info);
             break;
         case 5:
             user_info = new char[100];
             cout << "Enter info, elements with which you want to remove: ";
             cin >> user_info;
-            removeAllElementsWithChosenInfoRecursively(head, user_info);
+            removeAllElements(head, user_info);
             break;
         case 6:
-            OutputLLRecursively(head);
+            OutputLL(head);
             break;
         case 7:
             cout << "Program finished successfully!";
@@ -213,6 +213,6 @@ int main() {
         }
     }
 
-    deleteLLRecursively(head);
+    deleteLL(head);
     return 0;
 }
