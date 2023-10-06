@@ -1,0 +1,5 @@
+Student: Davis William
+	Math - 85
+	Programming - 89
+	Average mark: 87
+

@@ -1,0 +1,6 @@
+Student: Martinez Sarah
+	English - 50
+	History - 72
+	Math - 58
+	Average mark: 60
+

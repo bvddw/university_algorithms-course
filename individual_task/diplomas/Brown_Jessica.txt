@@ -1,0 +1,5 @@
+Student: Brown Jessica
+	Math - 59
+	Programming - 48
+	Average mark: 53.5
+
