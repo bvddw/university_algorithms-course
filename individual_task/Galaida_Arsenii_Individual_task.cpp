@@ -29,7 +29,7 @@ int main() {
         cout << "4. Get student info" << endl;
         cout << "5. Get info about subject" << endl;
         cout << "6. Get data about all students" << endl;
-        cout << "7. Create dimploma files and finish program" << endl;
+        cout << "7. Create diploma files and finish program" << endl;
         cin >> choice;
         switch (choice) {
         case 1:
