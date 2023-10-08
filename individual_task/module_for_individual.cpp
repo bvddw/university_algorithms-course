@@ -498,6 +498,7 @@ void createStudent(LL &head) {
         if (strcmp(new_student->student_name, cur->student_name) < 0) {
             new_student->next = cur;
             prev->next = new_student;
+            updateFilesData(head);
             return;
         }
         cur = cur->next;
@@ -505,6 +506,7 @@ void createStudent(LL &head) {
     }
     if (!cur) {
         prev->next = new_student;
+        updateFilesData(head);
         return;
     }
 }
@@ -633,6 +635,7 @@ void updateStudent(LL &head) {
         case 3:
             cout << "Data updated successfully" << endl;
             flag = false;
+            updateFilesData(head);
             return;
         default:
             cout << "Invalid choice." << endl;
@@ -674,10 +677,12 @@ void deleteStudent(LL &head) {
             LL temp = cur->next;
             cur->next = cur->next->next;
             delete temp;
+            updateFilesData(head);
             return;
         }
         cur = cur->next;
     }
+    updateFilesData(head);
 }
 
 void updateFilesData(LL head) {
@@ -785,15 +790,13 @@ void creatingDiplomas(LL head) {
 void deleteLL(LL head) {
     while (head) {
         LL temp = head;
-        head = head->next;
         subLL subject = head->subject;
         while (subject) {
             subLL temp_sub = subject;
             subject = subject->next;
-            delete[] temp_sub->subject;
             delete temp_sub;
         }
-        delete[] temp->student_name;
+        head = head->next;
         delete temp;
     }
 }

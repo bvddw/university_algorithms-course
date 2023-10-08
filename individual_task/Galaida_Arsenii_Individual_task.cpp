@@ -34,15 +34,12 @@ int main() {
         switch (choice) {
         case 1:
             createStudent(head);
-            updateFilesData(head);
             break;
         case 2:
             updateStudent(head);
-            updateFilesData(head);
             break;
         case 3:
             deleteStudent(head);
-            updateFilesData(head);
             break;
         case 4:
             getStudentInfo(head);
@@ -65,6 +62,5 @@ int main() {
             break;
         }
     }
-
     return 0;
 }
