@@ -1,5 +1,6 @@
 #include <iostream>
 #include "players_module.h"
+#include "players_module.cpp"
 
 using namespace std;
 
