@@ -23,9 +23,9 @@ typedef linked_list* LL;
 const char* getName(const char info[]); // get fullname from row in file
 int getMark(const char info[]); // get mark from row in file
 void getFileData(const char filename[], LL &head, const char* subject_name); // get all data from one file and forming LL
-const char* creatingFilenames(LL cur); // creating name for dimploma file from fullname
-void dataToDiploma(LL student); // write data to dimploma
-void creatingDiplomas(LL head); // creating dimplomas, using tools funcs
+const char* creatingFilenames(LL cur); // creating name for diploma file from fullname
+void dataToDiploma(LL student); // write data to diploma
+void creatingDiplomas(LL head); // creating diplomas, using tools funcs
 void updateFilesData(LL head); // update files after CRUD
 
 // student`s C(create)R(retrieve)U(update)D(delete)
@@ -37,7 +37,7 @@ void deleteStudent(LL &head); // delete
 
 // tools
 double averageMark(LL student); // get average mark for chosen student
-void infoAboutSubject(LL head); // get info about one subejct - here additional menu
+void infoAboutSubject(LL head); // get info about one subject - here additional menu
 void deleteLL(LL head); // cleaning data after program
 
 #endif
