@@ -1,5 +1,0 @@
-Student: Taylor Daniel
-	English - 51
-	Math - 52
-	Average mark: 51.5
-

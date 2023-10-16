@@ -1,6 +1,0 @@
-Student: Smith John
-	English - 49
-	Math - 59
-	Programming - 58
-	Average mark: 55.3333
-

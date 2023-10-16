@@ -1,7 +1,0 @@
-Student: Johnson Michael
-	English - 56
-	History - 61
-	Math - 93
-	Programming - 91
-	Average mark: 75.25
-

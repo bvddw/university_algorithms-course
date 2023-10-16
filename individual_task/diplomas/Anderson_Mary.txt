@@ -1,5 +1,0 @@
-Student: Anderson Mary
-	History - 66
-	Math - 54
-	Average mark: 60
-

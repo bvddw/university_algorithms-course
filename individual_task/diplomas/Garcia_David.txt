@@ -1,5 +1,0 @@
-Student: Garcia David
-	History - 52
-	Math - 49
-	Average mark: 50.5
-
