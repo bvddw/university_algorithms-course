@@ -96,7 +96,7 @@ int main() {
         case 1:
             cout << "Enter info, nodes with which one you want search: ";
             cin >> info_to_find;
-            cout << "In your tree " << findNodes(main_node, info_to_find) << " items with value " << info_to_find << "." << endl;
+            (findNodes(main_node, info_to_find)) ? (cout << "There is item with info " << info_to_find << " in your binary tree." << endl) : (cout << "There is not item with info " << info_to_find << " in your binary tree." << endl);
             break;
         case 2:
             cout << "Binary tree in direct order: ";
