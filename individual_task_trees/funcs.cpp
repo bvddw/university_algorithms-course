@@ -101,6 +101,16 @@ void inOrderTraversal(DT root) {
     inOrderTraversal(root->right);
 }
 
+void preOrderTraversal(DT root) {
+    if (!root) {
+        return;
+    }
+
+    cout << "English word: " << root->eng_word << " -- " << "Ukrainian translit: " << root->ukr_word << " -- " << root->counter << endl;
+    preOrderTraversal(root->left);
+    preOrderTraversal(root->right);
+}
+
 DT retrieveWord(DT root, const char* info) {
     if (!root) {
         return nullptr;
@@ -162,3 +172,54 @@ DT deleteWord(DT root, const char* info) {
     return root;
 }
 
+DT findMaxCounter(DT root, DT mostCount) {
+    if (!root) {
+        return mostCount;
+    }
+    if (root->counter > mostCount->counter) {
+        mostCount = root;
+    }
+
+    mostCount = findMaxCounter(root->left, mostCount);
+    mostCount = findMaxCounter(root->right, mostCount);
+    return mostCount;
+}
+
+DT insertNode(DT root, DT newNode) {
+    if (!root) {
+        DT newRoot = new dictionaryTree;
+        newRoot->counter = newNode->counter;
+        newRoot->eng_word = new char[strlen(newNode->eng_word) + 1];
+        strcpy(newRoot->eng_word, newNode->eng_word);
+        newRoot->ukr_word = new char[strlen(newNode->ukr_word) + 1];
+        strcpy(newRoot->ukr_word, newNode->ukr_word);
+        newRoot->left = nullptr;
+        newRoot->right = nullptr;
+
+        return newRoot;
+    }
+
+    if (strcmp(newNode->eng_word, root->eng_word) < 0) {
+        root->left = insertNode(root->left, newNode);
+    } else if (strcmp(newNode->eng_word, root->eng_word) > 0) {
+        root->right = insertNode(root->right, newNode);
+    }
+
+    return root;
+}
+
+DT rebuiltTree(DT root) {
+    DT newRoot = nullptr;
+    DT rootToDelete;
+
+    while (root->left || root->right) {
+        rootToDelete = findMaxCounter(root, root);
+        newRoot = insertNode(newRoot, rootToDelete);
+        root = deleteWord(root, rootToDelete->eng_word);
+    }
+
+    newRoot = insertNode(newRoot, root);
+    delete root;
+
+    return newRoot;
+}

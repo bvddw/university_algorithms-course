@@ -23,7 +23,9 @@ int main() {
         cout << "3. Add new word" << endl;
         cout << "4. Update translate" << endl;
         cout << "5. Delete word by its info" << endl;
-        cout << "6. Finish program" << endl;
+        cout << "6. Get the most popular word" << endl;
+        cout << "7. Rebuilt dictionary" << endl;
+        cout << "8. Finish program" << endl;
         cout << "Option: ";
         cin >> choice;
 
@@ -103,6 +105,19 @@ int main() {
                 cout << "Operation completed." << endl;
                 break;
             case 6:
+                cout << "The most popular word is: ";
+                checkWord = findMaxCounter(root, root);
+                cout << checkWord->eng_word << " with translate - " << checkWord->ukr_word << endl;
+                cout << "Visitors have already opened this word " << checkWord->counter << " times!" << endl;
+                break;
+            case 7:
+                cout << "Original dictionary:" << endl;
+                preOrderTraversal(root);
+                root = rebuiltTree(root);
+                cout << "New dictionary:" << endl;
+                preOrderTraversal(root);
+                break;
+            case 8:
                 cout << "Program finished.";
                 flag = false;
                 break;

@@ -19,5 +19,8 @@ void inOrderTraversal(DT root);
 DT retrieveWord(DT root, const char* info);
 DT updateWord(DT root, const char* info, const char* newInfo);
 DT deleteWord(DT root, const char* info);
+DT findMaxCounter(DT root, DT mostCount);
+DT insertNode(DT root, DT newNode);
+DT rebuiltTree(DT root);
 
 #endif //INDIVIDUAL_TASK_TREES_TREES_DICT_H
