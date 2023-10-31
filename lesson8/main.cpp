@@ -12,8 +12,16 @@ struct Node {
     Node(char val) : data(val), left(nullptr), right(nullptr) {}
 };
 
+bool isOperator(char c);
+bool isNum(char c);
+int charToInt(char c);
+Node* buildExpressionTree(const char* expression, int& index);
+void inOrderTraversal(Node* root);
+double countResult(Node* root);
+
+
 bool isOperator(char c) {
-    return (c == '+' || c == '-' || c == '*');
+    return (c == '+' || c == '-' || c == '*' || c == '/');
 }
 
 bool isNum(char c) {
@@ -84,6 +92,13 @@ double countResult(Node* root) {
     int result = 0;
     if (!root->left && !root->right) {
         return charToInt(root->data);
+    }
+    if (root->data == '/') {
+        if (countResult(root->right) == 0) {
+            cout << endl;
+            cerr << "Dividing by zero error caught.";
+        }
+        return countResult(root->left) / countResult(root->right);
     }
     if (root->data == '*') {
         return countResult(root->left) * countResult(root->right);
