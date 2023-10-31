@@ -16,6 +16,7 @@ const char* getUkr(const char info[]);
 DT insert(DT root, const char* eng, const char* ukr);
 DT dataToTreeTxt(char* filename);
 void inOrderTraversal(DT root);
+void preOrderTraversal(DT root);
 DT retrieveWord(DT root, const char* info);
 DT updateWord(DT root, const char* info, const char* newInfo);
 DT deleteWord(DT root, const char* info);
