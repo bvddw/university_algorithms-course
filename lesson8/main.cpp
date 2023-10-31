@@ -8,8 +8,6 @@ struct Node {
     char data;
     Node* left;
     Node* right;
-
-    Node(char val) : data(val), left(nullptr), right(nullptr) {}
 };
 
 bool isOperator(char c);
@@ -65,9 +63,16 @@ Node* buildExpressionTree(const char* expression, int& index) {
     }
 
     if (isNum(c)) {
-        return new Node(c);
+        Node* node = new Node;
+        node->data = c;
+        node->left = nullptr;
+        node->right = nullptr;
+        return node;
     } else if (isOperator(c)) {
-        Node* newNode = new Node(c);
+        Node* newNode = new Node;
+        newNode->data = c;
+        newNode->left = nullptr;
+        newNode->right = nullptr;
         newNode->left = buildExpressionTree(expression, index);
         newNode->right = buildExpressionTree(expression, index);
         return newNode;
@@ -89,7 +94,7 @@ void inOrderTraversal(Node* root) {
 }
 
 double countResult(Node* root) {
-    int result = 0;
+    double result = 0;
     if (!root->left && !root->right) {
         return charToInt(root->data);
     }
