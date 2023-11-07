@@ -1,6 +1,4 @@
 #include <iostream>
-#include <fstream>
-#include <cstring>
 #include "module_for_individual.h"
 #include "module_for_individual.cpp"
 
