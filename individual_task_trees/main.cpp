@@ -24,8 +24,9 @@ int main() {
         cout << "4. Update translate" << endl;
         cout << "5. Delete word by its info" << endl;
         cout << "6. Get the most popular word" << endl;
-        cout << "7. Rebuilt dictionary" << endl;
-        cout << "8. Finish program" << endl;
+        cout << "7. Get statistic" << endl;
+        cout << "8. Rebuilt dictionary" << endl;
+        cout << "9. Finish program" << endl;
         cout << "Option: ";
         cin >> choice;
 
@@ -40,7 +41,10 @@ int main() {
                 cin >> checkEngInfo;
                 checkWord = retrieveWord(root, checkEngInfo);
                 if (checkWord) {
-                    cout << checkWord->eng_word << " -- " << checkWord->ukr_word << " -- " << checkWord->counter << endl;
+                    TOTAL_VIEWS++;
+                    cout << "Information:" << endl;
+                    cout << '\t' << left << setw(20) << "English word" << setw(20) << "Ukrainian translit" << setw(10) << "Counter" << endl;
+                    cout << '\t' << left << setw(20) << checkWord->eng_word << setw(20) << checkWord->ukr_word << setw(10) << checkWord->counter << endl;
                 } else {
                     cout << "Unfortunately we do not have this word in our dictionary." << endl;
                     while (subFlag) {
@@ -111,13 +115,18 @@ int main() {
                 cout << "Visitors have already opened this word " << checkWord->counter << " times!" << endl;
                 break;
             case 7:
+                cout << "Dictionary statistic:\n";
+                cout << "\tWe have " << NUMBER_OF_WORDS << " words in dictionary!" << endl;
+                cout << "\tYou have checked the translation of words already " << TOTAL_VIEWS << " times." << endl;
+                break;
+            case 8:
                 cout << "Original dictionary:" << endl;
                 preOrderTraversal(root);
                 root = rebuiltTree(root);
                 cout << "New dictionary:" << endl;
                 preOrderTraversal(root);
                 break;
-            case 8:
+            case 9:
                 cout << "Program finished.";
                 flag = false;
                 break;

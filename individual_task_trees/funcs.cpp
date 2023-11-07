@@ -1,7 +1,9 @@
+#include <iomanip>
 #include <iostream>
 #include <fstream>
 #include <cstring>
 #include "trees_dict.h"
+
 
 using namespace std;
 
@@ -59,7 +61,7 @@ DT insert(DT root, const char* eng, const char* ukr) {
         newNode->counter = 0;
         newNode->left = nullptr;
         newNode->right = nullptr;
-
+        NUMBER_OF_WORDS++;
         return newNode;
     }
 
@@ -95,9 +97,9 @@ void inOrderTraversal(DT root) {
     if (!root) {
         return;
     }
-
     inOrderTraversal(root->left);
-    cout << "English word: " << root->eng_word << " -- " << "Ukrainian translit: " << root->ukr_word << " -- " << root->counter << endl;
+    cout << left << setw(20) << "English word" << setw(20) << "Ukrainian translit" << setw(20) << "Counter" << endl;
+    cout << left << setw(20) << root->eng_word << setw(20) << root->ukr_word << setw(20) << root->counter << endl;
     inOrderTraversal(root->right);
 }
 
@@ -106,7 +108,8 @@ void preOrderTraversal(DT root) {
         return;
     }
 
-    cout << "English word: " << root->eng_word << " -- " << "Ukrainian translit: " << root->ukr_word << " -- " << root->counter << endl;
+    cout << left << setw(20) << "English word" << setw(20) << "Ukrainian translit" << setw(20) << "Counter" << endl;
+    cout << left << setw(20) << root->eng_word << setw(20) << root->ukr_word << setw(20) << root->counter << endl;
     preOrderTraversal(root->left);
     preOrderTraversal(root->right);
 }
@@ -119,7 +122,7 @@ DT retrieveWord(DT root, const char* info) {
         root->counter++;
         return root;
     }
-    return retrieveWord(strcmp(root->eng_word, info) == -1 ? root->right : root->left, info);
+    return retrieveWord(strcmp(root->eng_word, info) < 0 ? root->right : root->left, info);
 }
 
 DT updateWord(DT root, const char* info, const char* newInfo) {
@@ -131,7 +134,7 @@ DT updateWord(DT root, const char* info, const char* newInfo) {
         strcpy(root->ukr_word, newInfo);
         return root;
     }
-    return updateWord(strcmp(root->eng_word, info) == -1 ? root->right : root->left, info, newInfo);
+    return updateWord(strcmp(root->eng_word, info) < 0 ? root->right : root->left, info, newInfo);
 }
 
 DT findMin(DT root) {
@@ -151,6 +154,7 @@ DT deleteWord(DT root, const char* info) {
     } else if (strcmp(info, root->eng_word) > 0) {
         root->right = deleteWord(root->right, info);
     } else {
+        NUMBER_OF_WORDS--;
         if (root->left && root->right) {
             DT minRightSubtree = findMin(root->right);
             root->counter = minRightSubtree->counter;
@@ -195,7 +199,7 @@ DT insertNode(DT root, DT newNode) {
         strcpy(newRoot->ukr_word, newNode->ukr_word);
         newRoot->left = nullptr;
         newRoot->right = nullptr;
-
+        NUMBER_OF_WORDS++;
         return newRoot;
     }
 
@@ -211,6 +215,7 @@ DT insertNode(DT root, DT newNode) {
 DT rebuiltTree(DT root) {
     DT newRoot = nullptr;
     DT rootToDelete;
+    int number_of_words = NUMBER_OF_WORDS;
 
     while (root->left || root->right) {
         rootToDelete = findMaxCounter(root, root);
@@ -220,6 +225,6 @@ DT rebuiltTree(DT root) {
 
     newRoot = insertNode(newRoot, root);
     delete root;
-
+    NUMBER_OF_WORDS = number_of_words;
     return newRoot;
 }
