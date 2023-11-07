@@ -1,22 +1,7 @@
 #include <iostream>
-#include <stack>
-#include <cctype>
+#include "header.h"
 
 using namespace std;
-
-struct Node {
-    char data;
-    Node* left;
-    Node* right;
-};
-
-bool isOperator(char c);
-bool isNum(char c);
-int charToInt(char c);
-Node* buildExpressionTree(const char* expression, int& index);
-void inOrderTraversal(Node* root);
-double countResult(Node* root);
-
 
 bool isOperator(char c) {
     return (c == '+' || c == '-' || c == '*' || c == '/');
@@ -112,18 +97,4 @@ double countResult(Node* root) {
         return countResult(root->left) - countResult(root->right);
     }
     return countResult(root->left) + countResult(root->right);
-}
-
-int main() {
-    char* input = new char;
-    cout << "Enter expression: ";
-    cin >> input;
-    const char* expression = input;
-    int index = 0;
-    Node* root = buildExpressionTree(expression, index);
-    cout << "Inorder traversal of the expression tree:" << endl;
-    inOrderTraversal(root);
-    cout << endl;
-    cout << "Result of the expression: " << countResult(root);
-    return 0;
 }
