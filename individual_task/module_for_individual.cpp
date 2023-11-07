@@ -677,12 +677,12 @@ void deleteStudent(LL &head) {
             LL temp = cur->next;
             cur->next = cur->next->next;
             delete temp;
-            updateFilesData(head);
+            // updateFilesData(head);
             return;
         }
         cur = cur->next;
     }
-    updateFilesData(head);
+    // updateFilesData(head);
 }
 
 void updateFilesData(LL head) {
