@@ -31,12 +31,12 @@ int main() {
                 cout << "Do you want to set priority manually, or use default (0)?";
                 cout << "\n1. Use default";
                 cout << "\n2. Set manually";
-                cout << "Choice: ";
+                cout << "\nChoice: ";
                 int ch;
                 cin >> ch;
-                if (choice == 1) {
+                if (ch == 1) {
                     priorityQueue.insert(value);
-                } else if (choice == 2) {
+                } else if (ch == 2) {
                     cout << "\nEnter prioirty: ";
                     cin >> priority;
                     priorityQueue.insert(value, priority);
@@ -63,7 +63,7 @@ int main() {
                 priorityQueue.printQueue();
                 break;
             case 5:
-                cout << "\nThe element with min priority is " << priorityQueue.getMinPriority() << ".\n";
+                cout << "\nThe element with min priority is " << priorityQueue.getMaxPriority() << ".\n";
                 break;
             case 6:
                 (priorityQueue.isEmpty()) ? (cout << "\nQueue is empty.\n") : (cout << "\nQueue is not empty.\n");

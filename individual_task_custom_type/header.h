@@ -23,7 +23,7 @@ public:
     PriorityQueue(); // constructor
 
     void insert(int value, int priority = 0); // add new element with its priority
-    int getMinPriority(); // get value with min priority and remove this item from queue
+    int getMaxPriority(); // get value with min priority and remove this item from queue
     bool isEmpty(); // check is queue is empty
     void printQueue(); // output the queue
     void remove(int value); // remove item by its value

@@ -10,14 +10,14 @@ void PriorityQueue::insert(int value, int priority) {
         priority = 0;
     }
     Node* newNode = new Node(value, priority);
-    if (!front || priority < front->priority) {
+    if (!front || priority > front->priority) {
         newNode->next = front;
         if (front)
             front->prev = newNode;
         front = newNode;
     } else {
         Node* current = front;
-        while (current->next && current->next->priority <= priority) {
+        while (current->next && current->next->priority >= priority) {
             current = current->next;
         }
         newNode->next = current->next;
@@ -28,7 +28,7 @@ void PriorityQueue::insert(int value, int priority) {
     }
 }
 
-int PriorityQueue::getMinPriority() {
+int PriorityQueue::getMaxPriority() {
     if (!front) {
         throw std::logic_error("Priority Queue is empty");
     }
