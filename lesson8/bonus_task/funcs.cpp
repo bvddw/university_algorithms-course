@@ -135,6 +135,9 @@ void pre_order(avl root) {
         return;
     }
     cout << root->info << ' ';
+    if (!root->left && !root->right) {
+        cout << "* ";
+    }
     pre_order(root->left);
     pre_order(root->right);
 }
