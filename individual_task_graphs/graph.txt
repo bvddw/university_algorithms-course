@@ -1,0 +1,50 @@
+Adjacent vertices to vertex 1: 2 3 
+Adjacent vertices to vertex 2: 1 3 4 
+Adjacent vertices to vertex 3: 1 2 4 5 
+Adjacent vertices to vertex 4: 2 3 6 
+Adjacent vertices to vertex 5: 3 6 7 
+Adjacent vertices to vertex 6: 4 5 8 
+Adjacent vertices to vertex 7: 5 8 9 
+Adjacent vertices to vertex 8: 6 7 9 
+Adjacent vertices to vertex 9: 7 8 10 
+Adjacent vertices to vertex 10: 9 11 
+Adjacent vertices to vertex 11: 10 12 
+Adjacent vertices to vertex 12: 11 
+
+Adjacent vertices to vertex 1: 3 10 
+Adjacent vertices to vertex 2: 3 4 10 
+Adjacent vertices to vertex 3: 1 2 5 
+Adjacent vertices to vertex 4: 2 5 6 
+Adjacent vertices to vertex 5: 3 4 6 
+Adjacent vertices to vertex 6: 4 5 7 
+Adjacent vertices to vertex 7: 6 8 
+Adjacent vertices to vertex 8: 7 9 
+Adjacent vertices to vertex 9: 8 
+Adjacent vertices to vertex 10: 1 2 
+
+Adjacent vertices to vertex 1: 3 7 
+Adjacent vertices to vertex 2: 3 7 8 
+Adjacent vertices to vertex 3: 1 2 8 
+Adjacent vertices to vertex 4: 5 8 
+Adjacent vertices to vertex 5: 4 6 
+Adjacent vertices to vertex 6: 5 
+Adjacent vertices to vertex 7: 1 2 
+Adjacent vertices to vertex 8: 2 3 4 
+
+Adjacent vertices to vertex 1: 5 6 
+Adjacent vertices to vertex 2: 3 6 
+Adjacent vertices to vertex 3: 2 4 
+Adjacent vertices to vertex 4: 3 
+Adjacent vertices to vertex 5: 1 6 
+Adjacent vertices to vertex 6: 1 2 5 
+
+Adjacent vertices to vertex 1: 2 4 
+Adjacent vertices to vertex 2: 1 3 
+Adjacent vertices to vertex 3: 2 
+Adjacent vertices to vertex 4: 1 
+
+Adjacent vertices to vertex 1: 2 4 
+Adjacent vertices to vertex 2: 1 3 
+Adjacent vertices to vertex 3: 2 
+Adjacent vertices to vertex 4: 1 
+
