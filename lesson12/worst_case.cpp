@@ -15,8 +15,8 @@ int main() {
         array_3[i] = array_1[i];
         array_4[i] = array_1[i];
     }
-    // bubleSort(array_1, SIZE);
-    // insertionSort(array_2, SIZE);
-    // selectionSort(array_3, SIZE);
+    bubleSort(array_1, SIZE);
+    insertionSort(array_2, SIZE);
+    selectionSort(array_3, SIZE);
     shellSort(array_4, SIZE);
 }
